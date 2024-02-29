@@ -162,10 +162,9 @@ class Kelas extends \CodeIgniter\Controller
 
     public function randomizePengampu()
     {
-        $mataKuliah = $this->mataKuliahModel->findAll();
         $this->pengampuModel->truncate('pengampu');
 
-        foreach ($mataKuliah as $item) {
+        foreach ($this->mataKuliahModel->findAll() as $item) {
             $kelas = $this->kelasModel->where('id_mata_kuliah', $item['id_mata_kuliah'])->find();
             $id_dosen = mt_rand(1, 31);
             if (!empty($kelas)) {

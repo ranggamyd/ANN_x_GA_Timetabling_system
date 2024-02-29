@@ -1,0 +1,12 @@
+runtime: php
+
+env_variables:
+  CI_ENVIRONMENT: production
+
+  database.default.hostname: 34.101.140.60
+  database.default.database: gna
+  database.default.username: postgres
+  database.default.password: postgres
+  database.default.DBDriver: Postgre
+  database.default.DBPrefix:
+  database.default.port: 5432

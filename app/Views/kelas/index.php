@@ -226,7 +226,7 @@ foreach ($kelas as $item) :
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" name="semua_mata_kuliah" value="1" class="form-check-input">
+                                <input type="checkbox" name="semua_mata_kuliah" value="1" class="form-check-input" checked>
                                 <span class="form-check-sign">Set untuk semua kelas dengan mata kuliah yang sama</span>
                             </label>
                         </div>

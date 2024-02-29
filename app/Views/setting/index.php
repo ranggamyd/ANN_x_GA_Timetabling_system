@@ -37,7 +37,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title fw-bold"><?= $title ?></h4>
+                            <h4 class="card-title fw-bold"># App Setting</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -134,7 +134,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title fw-bold"># Algoritma Genetika</h4>
+                            <h4 class="card-title fw-bold"># Genetic Algorithm</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -167,6 +167,17 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title fw-bold"># Misc</h4>
+                        </div>
+                        <div class="card-body">
+                            <a href="/setting/setDevelopment" class="btn btn-outline-primary mr-2">Development Mode</a>
+                            <a href="/setting/setProduction" class="btn btn-outline-primary">Production Mode</a>
                         </div>
                     </div>
                 </div>

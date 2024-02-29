@@ -5,6 +5,11 @@ namespace App\Controllers;
 class Setting extends \CodeIgniter\Controller
 {
     protected $settingModel;
+    protected $mataKuliahModel;
+    protected $historiPeminatModel;
+    protected $kelasModel;
+    protected $pengampuModel;
+    protected $jadwalModel;
 
     public function __construct()
     {
@@ -17,6 +22,11 @@ class Setting extends \CodeIgniter\Controller
         }
 
         $this->settingModel = new \App\Models\SettingModel();
+        $this->mataKuliahModel = new \App\Models\MataKuliahModel();
+        $this->historiPeminatModel = new \App\Models\HistoriPeminatModel();
+        $this->kelasModel = new \App\Models\KelasModel();
+        $this->pengampuModel = new \App\Models\PengampuModel();
+        $this->jadwalModel = new \App\Models\JadwalModel();
     }
 
     public function index()
@@ -46,6 +56,85 @@ class Setting extends \CodeIgniter\Controller
             'crossover' => $this->request->getPost('crossover'),
             'mutasi' => $this->request->getPost('mutasi'),
         ]);
+
+        return redirect()->to('setting')->with('success', 'Pengaturan berhasil disimpan !');
+    }
+
+    // Development Mode
+    public function setDevelopment()
+    {
+        $this->historiPeminatModel->truncate();
+        $this->kelasModel->truncate();
+        $this->pengampuModel->truncate();
+        $this->jadwalModel->truncate();
+
+        // Set Only IT Active Courses
+        foreach ($this->mataKuliahModel->findAll() as $item) {
+            $this->mataKuliahModel->save([
+                'id_mata_kuliah' => $item['id_mata_kuliah'],
+                'is_active' => false,
+                'tahun_prediksi' => null,
+                'prediksi_peminat' => null,
+            ]);
+
+            if ($item['id_prodi'] == 3) {
+                $this->mataKuliahModel->save([
+                    'id_mata_kuliah' => $item['id_mata_kuliah'],
+                    'is_active' => true,
+                    'tahun_prediksi' => null,
+                    'prediksi_peminat' => null,
+                ]);
+            }
+        }
+
+        // Set Only 3 Classes
+        $data = [];
+        foreach ($this->mataKuliahModel->findAll() as $item) {
+            for ($i = 2018; $i <= 2023; $i++) {
+                $data[] = [
+                    'id_mata_kuliah' => $item['id_mata_kuliah'],
+                    'tahun' => $i,
+                    'jumlah_peminat' => mt_rand(60, 90),
+                ];
+            }
+        }
+
+        $this->historiPeminatModel->insertBatch($data);
+
+        return redirect()->to('setting')->with('success', 'Pengaturan berhasil disimpan !');
+    }
+
+    // Production Mode
+    public function setProduction()
+    {
+        $this->historiPeminatModel->truncate();
+        $this->kelasModel->truncate();
+        $this->pengampuModel->truncate();
+        $this->jadwalModel->truncate();
+
+        // Set All Active Courses
+        foreach ($this->mataKuliahModel->findAll() as $item) {
+            $this->mataKuliahModel->save([
+                'id_mata_kuliah' => $item['id_mata_kuliah'],
+                'is_active' => true,
+                'tahun_prediksi' => null,
+                'prediksi_peminat' => null,
+            ]);
+        }
+
+        // Set 5 Classes
+        $data = [];
+        foreach ($this->mataKuliahModel->findAll() as $item) {
+            for ($i = 2018; $i <= 2023; $i++) {
+                $data[] = [
+                    'id_mata_kuliah' => $item['id_mata_kuliah'],
+                    'tahun' => $i,
+                    'jumlah_peminat' => mt_rand(120, 150),
+                ];
+            }
+        }
+
+        $this->historiPeminatModel->insertBatch($data);
 
         return redirect()->to('setting')->with('success', 'Pengaturan berhasil disimpan !');
     }
