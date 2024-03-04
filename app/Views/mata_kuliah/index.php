@@ -59,7 +59,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="datatable" class="display table table-striped table-hover">
+                            <table id="mktable" class="display table table-striped table-hover">
                                 <thead class="text-center thead-light">
                                     <tr>
                                         <th>No.</th>
@@ -69,8 +69,9 @@
                                         <th>Semester</th>
                                         <th>Sifat</th>
                                         <th>Prodi</th>
+                                        <th>Pengampu</th>
                                         <th>Status</th>
-                                        <th>Opsi</th>
+                                        <th style="min-width: 75px;">Opsi</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="text-center thead-light">
@@ -82,6 +83,7 @@
                                         <th>Semester</th>
                                         <th>Sifat</th>
                                         <th>Prodi</th>
+                                        <th>Pengampu</th>
                                         <th>Status</th>
                                         <th>Opsi</th>
                                     </tr>
@@ -99,6 +101,16 @@
                                             <td class="text-center"><?= $item['semester'] ?></td>
                                             <td class="text-center"><?= $item['sifat'] ?></td>
                                             <td class="text-center"><span class="badge badge-<?= ($item['id_prodi'] == '1') ? 'success' : (($item['id_prodi'] == '2') ? 'warning' : (($item['id_prodi'] == '3') ? 'secondary' : 'light')) ?>"><?= $item['nama_prodi'] ?></td>
+                                            <td class="text-center">
+                                                <?php
+                                                $dmm = new \App\Models\DosenMataKuliahModel();
+                                                $dm = $dmm->where('id_mata_kuliah', $item['id_mata_kuliah'])->join('dosen', 'dosen_mata_kuliah.id_dosen = dosen.id_dosen', 'left')->find();
+
+                                                foreach ($dm as $value) :
+                                                ?>
+                                                    <span class="badge badge-sm badge-light"><?= $value['nama_dosen'] ?></span>
+                                                <?php endforeach ?>
+                                            </td>
                                             <td class="text-center">
                                                 <?php if ($item['is_active'] === "t") : ?>
                                                     <span class="badge badge-light"><i class="fas fa-circle fa-sm text-success mr-2"></i>Aktif</span>

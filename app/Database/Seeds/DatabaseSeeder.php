@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call('AllActiveMataKuliahSeeder');
         // $this->call('AllActiveMataKuliahITSeeder');
         // $this->call('PengampuSeeder');
+        $this->call('DosenMataKuliahSeeder');
         $this->call('ProdiSeeder');
         $this->call('RuangSeeder');
         $this->call('RuangProdiSeeder');

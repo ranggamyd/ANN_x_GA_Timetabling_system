@@ -8,6 +8,7 @@ class Kelas extends \CodeIgniter\Controller
     protected $dosenModel;
     protected $pengampuModel;
     protected $settingModel;
+    protected $dosenMataKuliahModel;
     protected $kelasModel;
 
     public function __construct()
@@ -24,6 +25,7 @@ class Kelas extends \CodeIgniter\Controller
         $this->dosenModel = new \App\Models\DosenModel();
         $this->pengampuModel = new \App\Models\PengampuModel();
         $this->settingModel = new \App\Models\SettingModel();
+        $this->dosenMataKuliahModel = new \App\Models\DosenMataKuliahModel();
         $this->kelasModel = new \App\Models\KelasModel();
     }
 
@@ -77,6 +79,7 @@ class Kelas extends \CodeIgniter\Controller
             ->findAll();
 
         $this->kelasModel->truncate('kelas');
+        $this->pengampuModel->truncate('pengampu');
 
         foreach ($mata_kuliah as $item) {
             if (!$item['prediksi_peminat']) return redirect()->to('prediksi')->with('error', 'Mohon isi jumlah peserta mata kuliah dengan melakukan prediksi peserta !');
@@ -86,6 +89,8 @@ class Kelas extends \CodeIgniter\Controller
             $sisa = $item['prediksi_peminat'] % $jml_kelas;
             $jml_peserta_per_kelas = floor($item['prediksi_peminat'] / $jml_kelas);
             $sisa_pertama = $sisa;
+
+            $dosenMataKuliah = $this->dosenMataKuliahModel->where('id_mata_kuliah', $item['id_mata_kuliah'])->find();
 
             for ($i = 1; $i <= $jml_kelas; $i++) {
                 $jml_peserta_kelas = $jml_peserta_per_kelas;
@@ -104,6 +109,26 @@ class Kelas extends \CodeIgniter\Controller
                     'id_mata_kuliah' => $item['id_mata_kuliah'],
                     'prediksi_peserta' => $jml_peserta_kelas,
                 ]);
+
+                if ($dosenMataKuliah) {
+                    // if ($i <= 3) {
+                    //     if (count($dosenMataKuliah)>1) {
+                    //         # code...
+                    //     }
+                    // }
+                    // foreach ($dosenMataKuliah as $item) {
+                    //     // jika kelas <= 3 :
+                    //         // jika dosen ada 1, gunakan dosen tersebut
+                    //         // jika dosen lebih dari 1, maka random dosen
+                    //     // jika kelas > 3
+                    //         // jika dosen ada 1, gunakan dosen tersebut
+                    //         // jika dosen lebih dari 1, maka set 1 dosen untuk setiap 3 kelas
+                    // }
+                    $this->pengampuModel->save([
+                        'id_kelas' => $this->kelasModel->getInsertID(),
+                        'id_dosen' => $i <= 3 ? $dosenMataKuliah[0]['id_dosen'] : (isset($dosenMataKuliah[1]['id_dosen']) ? $dosenMataKuliah[1]['id_dosen'] : $dosenMataKuliah[0]['id_dosen'])
+                    ]);
+                }
             }
         }
 
@@ -158,6 +183,19 @@ class Kelas extends \CodeIgniter\Controller
         $this->pengampuModel->where('id_kelas', $id)->delete();
 
         return redirect()->to('kelas')->with('success', 'Kelas berhasil dihapus !');
+    }
+
+    public function rekap()
+    {
+        $data = [
+            'title' => 'Rekap Dosen',
+            'dosen' => $this->dosenModel
+                ->join('prodi', 'dosen.id_prodi = prodi.id_prodi', 'left')
+                ->orderBy('nama_dosen')
+                ->findAll()
+        ];
+
+        return view('kelas/rekap', $data);
     }
 
     public function randomizePengampu()

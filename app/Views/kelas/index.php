@@ -26,7 +26,10 @@
                 </ul>
             </div>
             <div class="ml-md-auto py-2 py-md-0" style="margin-bottom: 20px;">
-                <button type="button" class="btn btn-outline-secondary btn-round mr-2" data-toggle="modal" data-target="#tambahKelas" <?= !$kelas ? 'disabled' : '' ?>><i class="fas fa-plus-circle mr-2 fa-sm"></i>Tambah Kelas</button>
+                <?php if ($kelas) : ?>
+                    <a href="kelas/rekap" class="btn btn-outline-secondary btn-round mr-2"><i class="fas fa-info-circle mr-2 fa-sm"></i>Rekap Dosen</a>
+                    <button type="button" class="btn btn-outline-secondary btn-round mr-2" data-toggle="modal" data-target="#tambahKelas"><i class="fas fa-plus-circle mr-2 fa-sm"></i>Tambah Kelas</button>
+                <?php endif ?>
                 <button type="button" id="generateClassBtn" class="btn btn-primary btn-round"><i class="fas fa-signature mr-2"></i>Bangkitkan Kelas</button>
             </div>
         </div>

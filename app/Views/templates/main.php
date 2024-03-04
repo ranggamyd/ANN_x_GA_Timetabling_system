@@ -145,7 +145,98 @@
                     text: '<i class="fas fa-print mr-2"></i>Print',
                     titleAttr: 'Print Schedule'
                 }]
-            }).buttons().container().appendTo('#jadwaltable_wrapper .col-md-6:eq(0)');;
+            }).buttons().container().appendTo('#jadwaltable_wrapper .col-md-6:eq(0)');
+
+            $('#mktable').DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "pageLength": -1,
+                "columnDefs": [{
+                    targets: 7,
+                    visible: false
+                }],
+                "buttons": [{
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel mr-2"></i>Excel',
+                    titleAttr: 'Export to Excel'
+                }, {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf mr-2"></i>PDF',
+                    titleAttr: 'Export to PDF'
+                }, {
+                    extend: 'print',
+                    text: '<i class="fas fa-print mr-2"></i>Print',
+                    titleAttr: 'Print Schedule'
+                }, {
+                    extend: 'colvis',
+                    text: '<i class="fas fa-eye mr-2"></i>Show Column',
+                    // columns: ':not(.noVis)',
+                    titleAttr: 'Show Column',
+                    popoverTitle: 'Show Column'
+                }]
+            }).buttons().container().appendTo('#mktable_wrapper .col-md-6:eq(0)');
+
+            $('#dosentable').DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                // "autoWidth": false,
+                "pageLength": -1,
+                "columnDefs": [{
+                    targets: [5, 6],
+                    visible: false
+                }],
+                "buttons": [{
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel mr-2"></i>Excel',
+                    titleAttr: 'Export to Excel'
+                }, {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf mr-2"></i>PDF',
+                    titleAttr: 'Export to PDF'
+                }, {
+                    extend: 'print',
+                    text: '<i class="fas fa-print mr-2"></i>Print',
+                    titleAttr: 'Print Schedule'
+                }, {
+                    extend: 'colvis',
+                    text: '<i class="fas fa-eye mr-2"></i>Show Column',
+                    // columns: ':not(.noVis)',
+                    titleAttr: 'Show Column',
+                    popoverTitle: 'Show Column'
+                }]
+            }).buttons().container().appendTo('#dosentable_wrapper .col-md-6:eq(0)');
+
+            $('#reporttable').DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                // "autoWidth": false,
+                "pageLength": -1,
+                // "columnDefs": [{
+                //     targets: [3, 4],
+                //     visible: false
+                // }],
+                order: [[4, 'desc']],
+                "buttons": [{
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel mr-2"></i>Excel',
+                    titleAttr: 'Export to Excel'
+                }, {
+                    extend: 'pdf',
+                    text: '<i class="fas fa-file-pdf mr-2"></i>PDF',
+                    titleAttr: 'Export to PDF'
+                }, {
+                    extend: 'print',
+                    text: '<i class="fas fa-print mr-2"></i>Print',
+                    titleAttr: 'Print Schedule'
+                }, {
+                    extend: 'colvis',
+                    text: '<i class="fas fa-eye mr-2"></i>Show Column',
+                    // columns: ':not(.noVis)',
+                    titleAttr: 'Show Column',
+                    popoverTitle: 'Show Column'
+                }]
+            }).buttons().container().appendTo('#reporttable_wrapper .col-md-6:eq(0)');
 
             $('#predictBtn').click(function(e) {
                 e.preventDefault();

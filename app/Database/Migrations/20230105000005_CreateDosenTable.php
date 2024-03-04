@@ -33,6 +33,11 @@ class CreateDosenTable extends Migration
                 'constraint' => '255',
                 'null'       => true,
             ],
+            'id_prodi' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'null'       => true,
+            ],
             // 'id_user' => [
             //     'type'       => 'INT',
             //     'constraint' => 11,

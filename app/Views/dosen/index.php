@@ -37,15 +37,17 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="datatable" class="display table table-striped table-hover">
+                            <table id="dosentable" class="display table table-striped table-hover">
                                 <thead class="text-center thead-light">
                                     <tr>
                                         <th>No.</th>
                                         <th>NIDN</th>
                                         <th>Nama Dosen</th>
+                                        <th>Prodi</th>
+                                        <th style="max-width: 100px;">Matakuliah</th>
                                         <th>E-Mail</th>
                                         <th>No. Telepon</th>
-                                        <th>Opsi</th>
+                                        <th style="min-width: 75px;">Opsi</th>
                                     </tr>
                                 </thead>
                                 <tfoot class="text-center thead-light">
@@ -53,6 +55,8 @@
                                         <th>No.</th>
                                         <th>NIDN</th>
                                         <th>Nama Dosen</th>
+                                        <th>Prodi</th>
+                                        <th>Matakuliah</th>
                                         <th>E-Mail</th>
                                         <th>No. Telepon</th>
                                         <th>Opsi</th>
@@ -67,6 +71,17 @@
                                             <th class="text-center"><?= $i++ ?></th>
                                             <td class="text-center"><?= $item['nidn'] ?></td>
                                             <td><?= $item['nama_dosen'] ?></td>
+                                            <td class="text-center"><span class="badge badge-<?= ($item['id_prodi'] == '1') ? 'success' : (($item['id_prodi'] == '2') ? 'warning' : (($item['id_prodi'] == '3') ? 'secondary' : 'light')) ?>"><?= $item['nama_prodi'] ?: 'UNIVERSAL' ?></td>
+                                            <td class="text-center">
+                                                <?php
+                                                $dmm = new \App\Models\DosenMataKuliahModel();
+                                                $dm = $dmm->where('id_dosen', $item['id_dosen'])->join('mata_kuliah', 'dosen_mata_kuliah.id_mata_kuliah = mata_kuliah.id_mata_kuliah', 'left')->find();
+
+                                                foreach ($dm as $value) :
+                                                ?>
+                                                    <span class="badge badge-sm badge-light"><?= $value['nama_mata_kuliah'] ?></span>
+                                                <?php endforeach ?>
+                                            </td>
                                             <td><?= $item['email'] ?></td>
                                             <td><?= $item['no_hp'] ?></td>
                                             <td class="text-center" style="width: 100px;">

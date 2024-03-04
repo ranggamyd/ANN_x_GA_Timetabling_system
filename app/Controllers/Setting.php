@@ -7,6 +7,7 @@ class Setting extends \CodeIgniter\Controller
     protected $settingModel;
     protected $mataKuliahModel;
     protected $historiPeminatModel;
+    protected $jadwalDosenModel;
     protected $kelasModel;
     protected $pengampuModel;
     protected $jadwalModel;
@@ -24,6 +25,7 @@ class Setting extends \CodeIgniter\Controller
         $this->settingModel = new \App\Models\SettingModel();
         $this->mataKuliahModel = new \App\Models\MataKuliahModel();
         $this->historiPeminatModel = new \App\Models\HistoriPeminatModel();
+        $this->jadwalDosenModel = new \App\Models\JadwalDosenModel();
         $this->kelasModel = new \App\Models\KelasModel();
         $this->pengampuModel = new \App\Models\PengampuModel();
         $this->jadwalModel = new \App\Models\JadwalModel();
@@ -64,6 +66,7 @@ class Setting extends \CodeIgniter\Controller
     public function setDevelopment()
     {
         $this->historiPeminatModel->truncate();
+        $this->jadwalDosenModel->truncate();
         $this->kelasModel->truncate();
         $this->pengampuModel->truncate();
         $this->jadwalModel->truncate();
@@ -108,6 +111,7 @@ class Setting extends \CodeIgniter\Controller
     public function setProduction()
     {
         $this->historiPeminatModel->truncate();
+        $this->jadwalDosenModel->truncate();
         $this->kelasModel->truncate();
         $this->pengampuModel->truncate();
         $this->jadwalModel->truncate();

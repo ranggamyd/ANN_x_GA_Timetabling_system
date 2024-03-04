@@ -131,7 +131,9 @@ class Jadwal extends \CodeIgniter\Controller
 
         // dd($jadwalList);
         $jadwalBentrok = $this->cekJadwalBentrok($jadwalList);
-        // dd($jadwalBentrok);
+        if ($jadwalBentrok) {
+            // dd('Terdapat jadwal yg bentrok!');
+        }
 
         $data = [
             'title' => 'Jadwal Kuliah',

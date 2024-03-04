@@ -222,7 +222,7 @@ class Prediksi extends \CodeIgniter\Controller
 
         $total_waktu = number_format((float)microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"], 2, ',', '');
 
-        return redirect()->to('prediksi')->with('successWithTime', 'Peminat berhasil diprediksi ! Waktu pemrosesan <strong>' . $total_waktu . '</strong> detik.');
+        return redirect()->to('prediksi')->with('successWithTime', 'Peserta berhasil diprediksi ! Waktu pemrosesan <strong>' . $total_waktu . '</strong> detik.');
     }
 
     public function set3Kelas()
@@ -242,7 +242,7 @@ class Prediksi extends \CodeIgniter\Controller
 
         $this->historiPeminatModel->insertBatch($data);
 
-        return redirect()->to('prediksi/prediksi')->with('success', 'Histori peminat berhasil diperbarui !');
+        return redirect()->to('prediksi/prediksi')->with('success', 'Histori peserta berhasil diperbarui !');
     }
 
     public function set5Kelas()
@@ -262,6 +262,6 @@ class Prediksi extends \CodeIgniter\Controller
 
         $this->historiPeminatModel->insertBatch($data);
 
-        return redirect()->to('prediksi/prediksi')->with('success', 'Histori peminat berhasil diperbarui !');
+        return redirect()->to('prediksi/prediksi')->with('success', 'Histori peserta berhasil diperbarui !');
     }
 }

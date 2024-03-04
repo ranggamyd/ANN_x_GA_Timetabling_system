@@ -1,7 +1,7 @@
 <div class="main-header">
   <div class="logo-header" data-background-color="red2">
-    <a href="/" class="logo" style="height: 130%;">
-      <img src="/assets/img/logo.svg" alt="navbar brand" class="navbar-brand" style="height: 80px;">
+    <a href="/" class="logo d-flex align-items-center justify-content-start" style="height: 130%;">
+      <img src="/assets/img/logo.png" alt="navbar brand" class="navbar-brand" style="height: 28px;">
     </a>
     <div class="nav-toggle">
       <button class="btn btn-toggle toggle-sidebar">

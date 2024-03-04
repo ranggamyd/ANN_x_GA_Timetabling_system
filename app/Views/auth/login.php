@@ -15,12 +15,16 @@
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
         WebFont.load({
-            google: {"families": ["Lato: 400, 700, 900"]},
+            google: {
+                "families": ["Lato: 400, 700, 900"]
+            },
             custom: {
                 "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
                 "urls": ["/assets/css/fonts.min.css"]
             },
-            active: function() {sessionStorage.fonts = true}
+            active: function() {
+                sessionStorage.fonts = true
+            }
         });
     </script>
 
@@ -28,80 +32,47 @@
 </head>
 
 <body class="login">
-    <div class="wrapper wrapper-login">
-        <div class="container container-login animated fadeIn">
-            <h3 class="text-center">Login to Your Account</h3>
-            <div class="login-form">
-                <form action="/auth/login" method="post">
-                    <?= csrf_field(); ?>
-
-                    <div class="form-group form-floating-label">
-                        <input type="text" name="username" value="<?= set_value('username') ?>" class="form-control input-border-bottom" id="username" autofocus required>
-                        <label for="username" class="placeholder">Username</label>
-                    </div>
-                    <div class="form-group form-floating-label">
-                        <input type="password" name="password" value="<?= set_value('password') ?>" class="form-control input-border-bottom" id="password" required>
-                        <label for="password" class="placeholder">Password</label>
-                        <div class="show-password">
-                            <i class="icon-eye"></i>
+    <div class="wrapper wrapper-login wrapper-login-full p-0" style="background: url('/assets/img/login-bg.jpg'); background-size: cover; background-position: center;">
+        <div class="login-aside w-50 d-flex flex-column align-items-center justify-content-center text-center">
+            <img src="/assets/img/umc.png" alt="UMC Logo" style="width: 120px;">
+            <h1 class="title fw-bold text-white mt-2 mb-0">GNA - Scheduling System</h1>
+            <p class="subtitle text-white op-8">Penjadwalan Mata Kuliah Fakultas Teknik Universitas Muhammadiyah Cirebon</p>
+        </div>
+        <div class="login-aside w-50 d-flex align-items-center justify-content-center">
+            <div class="container container-login container-transparent animated fadeIn bg-light ml-md-5">
+                <h3 class="text-center">Login to Your Account</h3>
+                <div class="login-form">
+                    <form action="/auth/login" method="post">
+                        <?= csrf_field(); ?>
+                        <div class="form-group">
+                            <label for="username" class="placeholder"><b>Username</b></label>
+                            <input type="text" name="username" value="<?= set_value('username') ?>" class="form-control" id="username" autofocus required>
                         </div>
-                    </div>
-                    <div class="row form-sub m-0">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="remember_me" value="1" class="custom-control-input" id="remember_me" <?= set_checkbox('remember_me', '1') ?>>
-                            <label class="custom-control-label" for="remember_me">Remember Me</label>
+                        <div class="form-group">
+                            <label for="password" class="placeholder"><b>Password</b></label>
+                            <!-- <a href="#" class="link float-right">Forget Password ?</a> -->
+                            <div class="position-relative">
+                                <input type="password" name="password" value="<?= set_value('password') ?>" class="form-control" id="password" required>
+                                <div class="show-password">
+                                    <i class="icon-eye text-muted"></i>
+                                </div>
+                            </div>
                         </div>
-
-                        <!-- <a href="#" class="link float-right text-primary">Forget Password ?</a> -->
-                    </div>
-                    <div class="form-action">
-                        <button type="submit" class="btn btn-primary btn-rounded btn-login">Sign In<i class="fas fa-sign-in-alt ml-2"></i></button>
-                    </div>
-                    <!-- <div class="login-account">
+                        <div class="form-group form-action-d-flex mb-3">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="rememberme" checked>
+                                <label class="custom-control-label m-0" for="rememberme">Remember Me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Sign In<i class="fas fa-sign-in-alt ml-2"></i></button>
+                        </div>
+                        <!-- <div class="login-account">
                         <span class="msg">Don't have an account yet ?</span>
-                        <a href="#" id="show-signup" class="link">Sign Up</a>
+                        <a href="#" id="#" class="link">Sign Up</a>
                     </div> -->
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-
-        <!-- <div class="container container-signup animated fadeIn">
-            <h3 class="text-center">Sign Up</h3>
-            <div class="login-form">
-                <div class="form-group form-floating-label">
-                    <input id="fullname" name="fullname" type="text" class="form-control input-border-bottom" required>
-                    <label for="fullname" class="placeholder">Fullname</label>
-                </div>
-                <div class="form-group form-floating-label">
-                    <input id="email" name="email" type="email" class="form-control input-border-bottom" required>
-                    <label for="email" class="placeholder">Email</label>
-                </div>
-                <div class="form-group form-floating-label">
-                    <input id="passwordsignin" name="passwordsignin" type="password" class="form-control input-border-bottom" required>
-                    <label for="passwordsignin" class="placeholder">Password</label>
-                    <div class="show-password">
-                        <i class="icon-eye"></i>
-                    </div>
-                </div>
-                <div class="form-group form-floating-label">
-                    <input id="confirmpassword" name="confirmpassword" type="password" class="form-control input-border-bottom" required>
-                    <label for="confirmpassword" class="placeholder">Confirm Password</label>
-                    <div class="show-password">
-                        <i class="icon-eye"></i>
-                    </div>
-                </div>
-                <div class="row form-sub m-0">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="agree" id="agree">
-                        <label class="custom-control-label" for="agree">I Agree the terms and conditions.</label>
-                    </div>
-                </div>
-                <div class="form-action">
-                    <a href="#" id="show-signin" class="btn btn-danger btn-link btn-login mr-3">Cancel</a>
-                    <a href="#" class="btn btn-primary btn-rounded btn-login">Sign Up</a>
-                </div>
-            </div>
-        </div> -->
     </div>
 
     <!-- Core JS Files -->

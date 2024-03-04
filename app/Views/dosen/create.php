@@ -56,6 +56,26 @@
                                 <input type="text" name="nama_dosen" value="<?= set_value('nama_dosen') ?>" class="form-control" id="nama_dosen" required>
                                 <small class="form-text text-muted"><?= $validation->getError('nama_dosen') ?></small>
                             </div>
+                            <div class="form-group <?= $validation->hasError('id_prodi') ? 'has-error has-feedback' : '' ?>">
+                                <label for="id_prodi" class="form-label">Program Studi</label>
+                                <select name="id_prodi" class="form-control <?= $validation->hasError('id_prodi') ? 'is-invalid' : '' ?>" id="id_prodi">
+                                    <option hidden></option>
+                                    <?php foreach ($prodi as $item) : ?>
+                                        <option value="<?= $item['id_prodi'] ?>" <?= set_select('id_prodi', $item['id_prodi']) ?>><?= $item['nama_prodi'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                                <small class="form-text text-muted"><?= $validation->getError('id_prodi') ?></small>
+                            </div>
+                            <div class="form-group <?= $validation->hasError('mata_kuliah') ? 'has-error has-feedback' : '' ?>">
+                                <label for="mata_kuliah" class="form-label">Mata Kuliah Diampu</label>
+                                <select name="mata_kuliah[]" multiple class="form-control <?= $validation->hasError('mata_kuliah') ? 'is-invalid' : '' ?>" id="mata_kuliah">
+                                    <option hidden></option>
+                                    <?php foreach ($mata_kuliah as $item) : ?>
+                                        <option value="<?= $item['id_mata_kuliah'] ?>" <?= set_select('mata_kuliah[]', $item['id_mata_kuliah']) ?>><?= $item['nama_mata_kuliah'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                                <small class="form-text text-muted"><?= $validation->getError('mata_kuliah') ?></small>
+                            </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group <?= $validation->hasError('email') ? 'has-error has-feedback' : '' ?>">

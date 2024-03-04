@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 class Dosen extends \CodeIgniter\Controller
 {
+    protected $settingModel;
+    protected $prodiModel;
+    protected $mataKuliahModel;
     protected $dosenModel;
 
     public function __construct()
@@ -16,6 +19,9 @@ class Dosen extends \CodeIgniter\Controller
             exit();
         }
 
+        $this->settingModel = new \App\Models\SettingModel();
+        $this->prodiModel = new \App\Models\ProdiModel();
+        $this->mataKuliahModel = new \App\Models\MataKuliahModel();
         $this->dosenModel = new \App\Models\DosenModel();
     }
 
@@ -23,7 +29,11 @@ class Dosen extends \CodeIgniter\Controller
     {
         $data = [
             'title' => 'Daftar Dosen',
-            'dosen' => $this->dosenModel->orderBy('nama_dosen')->findAll(),
+            'dosen' => $this->dosenModel
+                ->join('prodi', 'dosen.id_prodi = prodi.id_prodi', 'left')
+                ->orderBy('kode_prodi')
+                ->orderBy('nama_dosen')
+                ->findAll(),
         ];
 
         return view('dosen/index', $data);
@@ -31,7 +41,24 @@ class Dosen extends \CodeIgniter\Controller
 
     public function create()
     {
-        $data = ['title' => 'Tambah Dosen'];
+        $setting = $this->settingModel->first();
+
+        $filters = [];
+        if (!empty($setting['paket_semester'])) $filters['mata_kuliah.paket'] = $setting['paket_semester'];
+        $filters['mata_kuliah.is_active'] = "t";
+
+        $data = [
+            'title' => 'Tambah Dosen',
+            'mata_kuliah' => $this->mataKuliahModel
+                ->where($filters)
+                ->join('prodi', 'mata_kuliah.id_prodi = prodi.id_prodi', 'left')
+                ->orderBy('mata_kuliah.is_active', 'desc')
+                ->orderBy('kode_prodi')
+                ->orderBy('semester')
+                ->orderBy('kode_mata_kuliah')
+                ->findAll(),
+            'prodi' => $this->prodiModel->orderBy('kode_prodi')->findAll(),
+        ];
 
         return view('dosen/create', $data);
     }
@@ -61,9 +88,24 @@ class Dosen extends \CodeIgniter\Controller
 
     public function edit($id)
     {
+        $setting = $this->settingModel->first();
+
+        $filters = [];
+        if (!empty($setting['paket_semester'])) $filters['mata_kuliah.paket'] = $setting['paket_semester'];
+        $filters['mata_kuliah.is_active'] = "t";
+        
         $data = [
             'title' => 'Edit Dosen',
             'dosen' => $this->dosenModel->find($id),
+            'mata_kuliah' => $this->mataKuliahModel
+                ->where($filters)
+                ->join('prodi', 'mata_kuliah.id_prodi = prodi.id_prodi', 'left')
+                ->orderBy('mata_kuliah.is_active', 'desc')
+                ->orderBy('kode_prodi')
+                ->orderBy('semester')
+                ->orderBy('kode_mata_kuliah')
+                ->findAll(),
+            'prodi' => $this->prodiModel->orderBy('kode_prodi')->findAll(),
         ];
 
         return view('dosen/edit', $data);

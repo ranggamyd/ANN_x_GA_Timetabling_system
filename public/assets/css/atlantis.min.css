@@ -13623,10 +13623,10 @@ body[data-background-color="dark"] .board {
   background: #ea4d56 !important;
   background: -webkit-linear-gradient(
     legacy-direction(-45deg),
-    #06418e,
-    #ea4d56
+    #FF7878,
+    #FF0000
   ) !important;
-  background: linear-gradient(-45deg, #06418e, #ea4d56) !important;
+  background: linear-gradient(-45deg, #FF7878, #FF0000) !important;
 }
 .bg-secondary-gradient {
   background: #526d82 !important;

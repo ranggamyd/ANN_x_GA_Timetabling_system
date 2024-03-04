@@ -9,7 +9,7 @@
         <div class="info">
           <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
             <span>
-            <?= session()->get('username') ?>
+              <?= session()->get('username') ?>
               <span class="user-level"><?= session()->get('role') ?></span>
               <span class="caret"></span>
             </span>
@@ -96,24 +96,24 @@
           <span class="sidebar-mini-icon">
             <i class="fa fa-ellipsis-h"></i>
           </span>
-          <h4 class="text-section">Additional</h4>
+          <h4 class="text-section">Management</h4>
         </li>
-        <li class="nav-item <?= (service('uri')->getSegment(1) == 'setting') ? 'active' : ''; ?>">
-          <a href="/setting">
-            <i class="fas fa-cog"></i>
-            <p>Settings</p>
+        <li class="nav-item <?= (service('uri')->getSegment(1) == 'users') ? 'active' : ''; ?>">
+          <a href="/users">
+            <i class="fas fa-users-cog"></i>
+            <p>Pengguna</p>
           </a>
         </li>
         <li class="nav-section">
           <span class="sidebar-mini-icon">
             <i class="fa fa-ellipsis-h"></i>
           </span>
-          <h4 class="text-section">Management</h4>
+          <h4 class="text-section">Additional</h4>
         </li>
-        <li class="nav-item <?= (service('uri')->getSegment(1) == 'users') ? 'active' : ''; ?>">
-          <a href="/users">
+        <li class="nav-item <?= (service('uri')->getSegment(1) == 'setting') ? 'active' : ''; ?>">
+          <a href="/setting">
             <i class="fas fa-cog"></i>
-            <p>Pengguna</p>
+            <p>Settings</p>
           </a>
         </li>
       </ul>
